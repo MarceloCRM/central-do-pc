@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "serve": "workerd serve selfhost/config.capnp --socket-addr http=127.0.0.1:8080 --directory-path public=public --directory-path data=dados",
     "test": "node test/e2e.mjs",
+    "test:selfhost": "node test/e2e.mjs --selfhost",
     "vendor": "node scripts/vendor.mjs"
   },
   "devDependencies": {

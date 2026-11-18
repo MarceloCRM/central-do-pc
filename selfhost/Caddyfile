@@ -1,0 +1,8 @@
+# HTTPS na frente da central. O Caddy pede e renova o certificado sozinho.
+{$DOMINIO} {
+	reverse_proxy central:8080 {
+		# O Worker limita tentativas por IP. O Caddy informa o IP real e sobrescreve o que vier
+		# do navegador, então ninguém se passa por outro IP.
+		header_up CF-Connecting-IP {remote_host}
+	}
+}

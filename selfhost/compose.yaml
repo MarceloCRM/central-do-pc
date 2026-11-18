@@ -1,0 +1,33 @@
+# VPS com Docker: a Central do PC + Caddy (HTTPS automático com Let's Encrypt).
+# Veja docs/hospedagem-propria.md. Na pasta selfhost/:
+#   cp .env.example .env    (e preencha)
+#   docker compose up -d --build
+services:
+  central:
+    build:
+      context: ..
+      dockerfile: selfhost/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - central-dados:/data
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMINIO: ${DOMINIO}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-dados:/data
+      - caddy-config:/config
+    depends_on:
+      - central
+
+volumes:
+  central-dados:
+  caddy-dados:
+  caddy-config:

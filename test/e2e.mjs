@@ -326,8 +326,13 @@ function fakeCodex() {
 
 async function main() {
   watch();
-  console.log("Subindo o Worker local e o agente…");
-  const worker = start(["node_modules/wrangler/bin/wrangler.js", "dev", "--port", String(PORT), "--ip", "127.0.0.1", "--persist-to", join(TMP, "state"), "--show-interactive-dev-session=false"], {});
+  // "npm run test:selfhost" testa a hospedagem própria (selfhost/config.capnp no workerd) em vez do wrangler dev.
+  const selfhost = process.argv.includes("--selfhost");
+  console.log("Subindo o Worker local (" + (selfhost ? "workerd, hospedagem própria" : "wrangler dev") + ") e o agente…");
+  const worker = selfhost
+    ? start(["node_modules/workerd/bin/workerd", "serve", "selfhost/config.capnp", "--socket-addr", "http=127.0.0.1:" + PORT,
+        "--directory-path", "public=" + join(ROOT, "public"), "--directory-path", "data=" + (mkdirSync(join(TMP, "state"), { recursive: true }), join(TMP, "state"))], vars)
+    : start(["node_modules/wrangler/bin/wrangler.js", "dev", "--port", String(PORT), "--ip", "127.0.0.1", "--persist-to", join(TMP, "state"), "--show-interactive-dev-session=false"], {});
   await until("o Worker local responder", async () => (await fetch(BASE + "/api/status")).ok, 60_000).catch((e) => {
     throw new Error(e.message + "\n" + worker.log.slice(-2000));
   });

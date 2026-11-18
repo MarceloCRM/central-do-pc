@@ -11,3 +11,7 @@ agent/helper.exe
 
 # ESP32: Wi-Fi e DEVICE_SECRET (modelo: secrets.example.h)
 esp32/esp32_wol_passkey/secrets.h
+
+# Hospedagem própria: segredos do Docker Compose (modelo: selfhost/.env.example)
+selfhost/.env
+dados/

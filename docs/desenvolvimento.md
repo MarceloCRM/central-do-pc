@@ -13,6 +13,7 @@ agent/install.ps1         Instala/atualiza o agente em %LOCALAPPDATA%\CentralPC\
 agent/install-sensores.ps1, agent/sensors.ps1   Tarefa SYSTEM que lê as temperaturas
 agent/acordar-pela-rede.ps1                     Libera o Wake-on-LAN na placa de rede
 esp32/esp32_wol_passkey/  Sketch do ESP32 (Arduino)
+selfhost/                 Hospedagem própria: config do workerd, Dockerfile, Compose e Caddyfile
 scripts/vendor.mjs        Copia o xterm.js de node_modules para public/
 test/e2e.mjs              Teste de ponta a ponta
 docs/                     Esta documentação
@@ -23,7 +24,9 @@ docs/                     Esta documentação
 ```powershell
 npm install
 copy .dev.vars.example .dev.vars      # segredos de teste para o Worker local; troque os valores
-npm run dev                           # Worker local em http://localhost:8787
+npm run dev                           # Worker local em http://localhost:8787 (wrangler dev)
+# ou, como na hospedagem própria (lê os segredos das variáveis de ambiente, banco em dados/):
+npm run serve                         # http://127.0.0.1:8080
 ```
 
 Passkeys só funcionam em `localhost` ou HTTPS. Para testar no celular, publique numa conta de
@@ -46,6 +49,9 @@ explorador, sessões do Claude e do Codex (com arquivos de mentira), computadore
 limites. Ele abre terminais de verdade e tira um print da tela, que vai só para o Worker local.
 Precisa do `.dev.vars`.
 
+`npm run test:selfhost` roda o mesmo teste com o servidor no workerd puro, pela
+`selfhost/config.capnp` (o caminho da hospedagem própria), em vez do `wrangler dev`.
+
 ## Regras do projeto
 
 - **`page.js`** é o HTML dentro de um template literal. No JavaScript da página **não use crases,
@@ -61,7 +67,10 @@ Precisa do `.dev.vars`.
 - `helper.cs` é compilado com o `csc.exe` do .NET Framework 4 que já vem no Windows: C# 5, sem
   interpolação de strings nem `?.`.
 - Os scripts `.ps1` com acentos são salvos em UTF-8 **com BOM** (o Windows PowerShell 5.1 precisa).
-- Rode `npm test` antes de mandar mudanças.
+- O Worker roda na Cloudflare **e** no workerd puro (`selfhost/`): não use recursos que só existem
+  num dos dois. Arquivo novo em `public/` precisa de um tipo em `ASSET_TYPES` (worker.js) para ser
+  servido na hospedagem própria.
+- Rode `npm test` (e `npm run test:selfhost`, se mexeu no servidor) antes de mandar mudanças.
 
 ## Publicar
 

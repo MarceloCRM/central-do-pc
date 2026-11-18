@@ -25,9 +25,20 @@ nenhuma porta no roteador.
    └──────────────►  ESP32 na sua rede (opcional: só para LIGAR um PC desligado)
 ```
 
-Os agentes e o ESP32 é que se conectam à Cloudflare, nunca o contrário: nada no seu PC ou no
-roteador fica exposto à internet. Cada pessoa publica a **própria** cópia do Worker na **própria**
-conta da Cloudflare; não existe um servidor central compartilhado.
+Os agentes e o ESP32 é que se conectam ao servidor, nunca o contrário: nada no seu PC ou no
+roteador fica exposto à internet. Cada pessoa publica a **própria** cópia do servidor; não existe um
+servidor central compartilhado.
+
+## Onde hospedar
+
+| Caminho | Para quem | Guia |
+| --- | --- | --- |
+| **Cloudflare** (recomendado) | Quase todo mundo: grátis, sem servidor para cuidar, no ar em minutos | [Instalação rápida](#instalação-rápida) |
+| **VPS com Docker** | Quem prefere não depender da Cloudflare: Docker Compose com HTTPS automático | [docs/hospedagem-propria.md](docs/hospedagem-propria.md#opção-a-vps-com-docker-recomendada) |
+| **VPS sem Docker, serviços de contêiner ou servidor em casa** | Fly.io, Railway, Render, Raspberry Pi… | [docs/hospedagem-propria.md](docs/hospedagem-propria.md) |
+
+O servidor é o mesmo código nos dois casos: fora da Cloudflare ele roda no
+[workerd](https://github.com/cloudflare/workerd), o motor de código aberto dela.
 
 Detalhes em [docs/como-funciona.md](docs/como-funciona.md).
 
@@ -35,7 +46,7 @@ Detalhes em [docs/como-funciona.md](docs/como-funciona.md).
 
 | Item | Para quê | Obrigatório? |
 | --- | --- | --- |
-| Conta na [Cloudflare](https://dash.cloudflare.com/sign-up) (plano gratuito) | Hospedar o Worker | Sim |
+| Conta na [Cloudflare](https://dash.cloudflare.com/sign-up) (plano gratuito) **ou** uma VPS com domínio | Hospedar o servidor | Sim |
 | Node.js 22 ou mais novo e Git, num computador | Publicar o Worker | Sim |
 | PC com Windows 10 ou 11 e Node.js 22+ | Rodar o agente | Sim, em cada PC |
 | Celular ou computador com passkey (digital, rosto ou PIN) | Entrar e autorizar ações | Sim |
@@ -44,7 +55,7 @@ Detalhes em [docs/como-funciona.md](docs/como-funciona.md).
 
 ## Instalação rápida
 
-O passo a passo completo, com explicações e solução de problemas, está em
+Na Cloudflare (para VPS, veja [docs/hospedagem-propria.md](docs/hospedagem-propria.md)). O passo a passo completo, com explicações e solução de problemas, está em
 **[docs/instalacao.md](docs/instalacao.md)**. Resumo:
 
 ```powershell
@@ -79,7 +90,8 @@ Opcionais: temperaturas da CPU, ligar pelo ESP32 e acordar pela rede, em
 
 | Documento | O que tem |
 | --- | --- |
-| [docs/instalacao.md](docs/instalacao.md) | Instalação completa, atualização, desinstalação e problemas comuns |
+| [docs/instalacao.md](docs/instalacao.md) | Instalação completa na Cloudflare, atualização, desinstalação e problemas comuns |
+| [docs/hospedagem-propria.md](docs/hospedagem-propria.md) | Rodar numa VPS (Docker ou não), em serviços de contêiner ou num servidor em casa |
 | [docs/como-usar.md](docs/como-usar.md) | Cada aba e função da central: ligar, terminais, vibecoding, apps, computadores |
 | [docs/como-funciona.md](docs/como-funciona.md) | Arquitetura, o que acontece em cada ação e o modelo de segurança |
 | [docs/desenvolvimento.md](docs/desenvolvimento.md) | Estrutura do código, testes, rodar localmente e regras do projeto |

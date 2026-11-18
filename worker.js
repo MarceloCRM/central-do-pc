@@ -102,6 +102,8 @@ const WS_GONE = 4404;
 const WS_OFFLINE = 4409;
 const WS_ENDED = 4410;
 
+const ASSET_TYPES = { js: "text/javascript; charset=utf-8", css: "text/css; charset=utf-8", png: "image/png", webmanifest: "application/manifest+json" };
+
 const enc = new TextEncoder();
 const dec = new TextDecoder();
 
@@ -1361,11 +1363,24 @@ async function route(request, env) {
   const path = url.pathname;
   const rpId = url.hostname;
   const origin = url.origin;
-  const ip = request.headers.get("cf-connecting-ip") || "?";
+  // Na Cloudflare o IP vem em cf-connecting-ip. Hospedagem própria pode apontar outro cabeçalho do
+  // proxy (CLIENT_IP_HEADER); vale o último IP da lista, que é o que o proxy acrescentou.
+  const ip = (request.headers.get(env.CLIENT_IP_HEADER || "cf-connecting-ip") || "?").split(",").pop().trim();
   const store = env.STORE.get(env.STORE.idFromName("main"));
 
   if (request.method === "GET" && path === "/") return page(url);
   if (request.method === "GET" && path === "/favicon.ico") return new Response(null, { status: 204 });
+  // Na Cloudflare, public/ é servido antes do Worker ([assets] no wrangler.toml). Na hospedagem
+  // própria (workerd, veja selfhost/), os arquivos vêm do binding ASSETS, uma pasta em disco.
+  const asset = env.ASSETS && request.method === "GET" && /^\/[a-z0-9-]+\.(js|css|png|webmanifest)$/.exec(path);
+  if (asset) {
+    const res = await env.ASSETS.fetch(new Request("http://assets" + path));
+    if (res.ok) {
+      return new Response(res.body, {
+        headers: { "content-type": ASSET_TYPES[asset[1]], "cache-control": "public, max-age=0, must-revalidate", "x-content-type-options": "nosniff" },
+      });
+    }
+  }
 
   // ---------- WebSockets (túnel do agente e terminais) ----------
   if (request.method === "GET" && path === "/api/agent/ws") return agentSocket(request, env, store, url);

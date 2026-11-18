@@ -15,7 +15,7 @@
 
 | Peça | Onde roda | Arquivos |
 | --- | --- | --- |
-| Worker | Cloudflare (sua conta) | `worker.js`, `wrangler.toml` |
+| Worker | Cloudflare (sua conta) ou workerd numa VPS | `worker.js`, `wrangler.toml`, `selfhost/` |
 | Página | Servida pelo Worker; vira app no celular | `page.js`, `public/` |
 | Agente | Em cada PC, na sessão do usuário | `agent/agent.js`, `agent/helper.cs`, `agent/install.ps1` |
 | Sensores (opcional) | Em cada PC, tarefa como SYSTEM | `agent/sensors.ps1`, `agent/install-sensores.ps1` |
@@ -136,7 +136,7 @@ outro id, a chave antiga nunca volta a valer.
 
 ## Custos
 
-Para uso pessoal, cabe no plano gratuito da Cloudflare. Cada PC ligado faz cerca de 8.600
+Na hospedagem própria, o custo é o da VPS. Na Cloudflare, para uso pessoal, cabe no plano gratuito. Cada PC ligado faz cerca de 8.600
 consultas por dia (uma a cada 10 s), e o ESP32 cerca de 17.000 (uma a cada 5 s), longe do limite
 diário de requisições do plano. A presença dos PCs e do ESP32 é gravada no máximo uma vez por
 minuto, para poupar a cota de escritas.

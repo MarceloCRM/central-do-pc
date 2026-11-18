@@ -1,6 +1,10 @@
 # Instalação
 
-Passo a passo para colocar a sua própria Central do PC no ar. Leva uns 20 minutos sem o ESP32.
+Passo a passo para colocar a sua própria Central do PC no ar, na Cloudflare. Leva uns 20 minutos
+sem o ESP32.
+
+> Prefere uma VPS ou outro serviço? Faça a hospedagem por [hospedagem-propria.md](hospedagem-propria.md)
+> no lugar dos passos 1 a 3 e continue daqui a partir do [passo 4](#4-cadastrar-o-celular).
 
 1. [Preparar o computador que vai publicar](#1-preparar-o-computador-que-vai-publicar)
 2. [Publicar o Worker na Cloudflare](#2-publicar-o-worker-na-cloudflare)
