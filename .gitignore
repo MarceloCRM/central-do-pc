@@ -1,0 +1,13 @@
+node_modules/
+.wrangler/
+.dev.vars
+
+# Agente: arquivos gerados ou com segredo
+agent/config.json
+agent/programs.json
+agent/state.json
+agent/agent.log*
+agent/helper.exe
+
+# ESP32: Wi-Fi e DEVICE_SECRET (modelo: secrets.example.h)
+esp32/esp32_wol_passkey/secrets.h

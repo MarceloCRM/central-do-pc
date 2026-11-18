@@ -1,0 +1,7 @@
+{
+  "url": "https://SEU-WORKER.workers.dev",
+  "secret": "o mesmo valor do secret AGENT_SECRET do Worker",
+  "folders": [],
+  "folderRoots": ["C:\\Users\\VOCE\\Desktop"],
+  "claudeArgs": ["--remote-control"]
+}

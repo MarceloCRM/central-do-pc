@@ -1,0 +1,16 @@
+{
+  "name": "wol-agent",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Agente do Windows da Central do PC: métricas, comandos e terminais.",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "node-pty": "1.1.0"
+  }
+}

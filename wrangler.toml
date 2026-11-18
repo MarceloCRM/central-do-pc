@@ -1,0 +1,20 @@
+name = "wol-passkey"
+main = "worker.js"
+compatibility_date = "2025-09-01"
+
+# Arquivos estáticos do terminal (xterm.js). São servidos direto, sem passar pelo Worker.
+# Para atualizar: npm run vendor
+[assets]
+directory = "./public"
+
+[[durable_objects.bindings]]
+name = "STORE"
+class_name = "Store"
+
+# Already applied on Cloudflare (tag v1); kept so wrangler deploy stays in sync.
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Store"]
+
+# Secrets (set with `wrangler secret put`, never committed):
+# SETUP_TOKEN, DEVICE_SECRET, AGENT_SECRET

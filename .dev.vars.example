@@ -1,0 +1,5 @@
+# Segredos de teste para o Worker local (npm run dev e npm test). Copie para .dev.vars.
+# Use valores aleatórios: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+SETUP_TOKEN=troque-por-um-valor-aleatorio-1
+DEVICE_SECRET=troque-por-um-valor-aleatorio-2
+AGENT_SECRET=troque-por-um-valor-aleatorio-3

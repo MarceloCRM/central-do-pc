@@ -1,0 +1,4 @@
+[
+  { "id": "bloco", "label": "Bloco de notas", "path": "C:\\Windows\\System32\\notepad.exe" },
+  { "id": "explorer", "label": "Explorador", "path": "C:\\Windows\\explorer.exe" }
+]
