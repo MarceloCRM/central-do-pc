@@ -82,6 +82,8 @@ npx wrangler secret put AGENT_SECRET
 6. No PC, baixe o projeto, abra o PowerShell na pasta dele e cole o comando. Em segundos o PC
    aparece como ligado na central.
 7. Para mais PCs: **Sistema → Computadores → Adicionar computador**, e repita o passo 6 no PC novo.
+8. Instale como app: no Android, **Instalar app** no topo da página; no iPhone, Safari →
+   Compartilhar → **Adicionar à Tela de Início** ([detalhes](docs/instalacao.md#6-instalar-como-app-no-celular)).
 
 Opcionais: temperaturas da CPU, ligar pelo ESP32 e acordar pela rede, em
 [docs/instalacao.md](docs/instalacao.md#7-opcionais).

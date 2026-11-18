@@ -113,8 +113,16 @@ Depois de instalado, a pasta do projeto pode ser apagada; o agente fica na pasta
 - **iPhone (Safari)**: Compartilhar → **Adicionar à Tela de Início**. O app do iPhone tem cookies
   próprios: entre uma vez com a digital dentro dele.
 
+- **Computador (Chrome ou Edge)**: o mesmo botão **Instalar app**, ou o ícone de instalar na barra
+  de endereço. A central abre numa janela própria.
+
 O app é a mesma página. Nada fica guardado no celular: sem internet ele só mostra um aviso, e as
-atualizações chegam sozinhas.
+atualizações chegam sozinhas. O botão **Instalar app** só aparece quando o navegador permite instalar
+(Chrome e Edge) e some depois de instalado.
+
+**Ícone ou nome antigo depois de uma atualização?** O Android troca sozinho, mas pode levar alguns
+dias; o iPhone não troca. Para atualizar na hora, remova o app e instale de novo (no iPhone, entre
+de novo com a digital dentro dele).
 
 ## 7. Opcionais
 

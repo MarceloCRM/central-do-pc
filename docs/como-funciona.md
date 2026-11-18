@@ -44,6 +44,15 @@ Só aceita a lista fixa de ações (`shutdown`, `restart`, `sleep`, `lock`, `scr
 encerrar terminal, listar pasta, listar sessões). Não existe "rodar este comando" fora de um
 terminal que você mesmo abriu com a digital.
 
+### App instalado (PWA)
+
+A central é um Progressive Web App: o `public/manifest.webmanifest` dá o nome, as cores e os ícones,
+e o navegador instala a página como app, com ícone e tela cheia. O `public/sw.js` (service worker)
+**não guarda nada**: ele só existe para o app ser instalável e para mostrar "Sem conexão" quando
+falta internet. Por isso o app é sempre a versão atual da página, sem cache para limpar, e nada da
+central fica salvo no celular além do cookie da sessão e de preferências da tela (a última aba, o
+último PC e o assistente escolhido).
+
 ### ESP32
 
 Consulta `/api/device/poll` a cada 5 segundos. Quando há um pedido de ligar (válido por 60
