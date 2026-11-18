@@ -126,6 +126,7 @@ function loadConfig() {
     folders: strings(raw.folders),            // pastas que sempre aparecem como atalho na central
     folderRoots: raw.folderRoots === undefined ? [path.join(HOME, 'Desktop')] : strings(raw.folderRoots),
     claudeArgs: raw.claudeArgs === undefined ? ['--remote-control'] : strings(raw.claudeArgs),
+    lockAtBoot: raw.lockAtBoot === true,      // logon automático ligado (entrar-sozinho.ps1): bloqueia a tela ao iniciar
   };
 }
 
@@ -1212,6 +1213,11 @@ lock.on('error', (e) => {
 lock.listen('\\\\.\\pipe\\central-pc-agente-' + sha256(cfg.url + '|' + cfg.pc).slice(0, 12), () => {
   log('agente iniciado para', cfg.url, '| pc', cfg.pc, '| node', process.version, '| shell', path.basename(POWERSHELL) +
     (state.awake ? ' | mantendo o PC acordado' : ''));
+  // O Windows entrou sozinho ao ligar (logon automático): bloqueia a tela já, o agente segue rodando.
+  // shortcut: vale para qualquer início nos 10 min após ligar (inclui o agente reiniciado ou um login manual logo depois).
+  if (cfg.lockAtBoot && os.uptime() < 600) {
+    run('rundll32.exe', ['user32.dll,LockWorkStation']).then(() => log('tela bloqueada: logon automático'), (e) => log('bloquear falhou:', e.message));
+  }
   askHelper('info')
     .then((info) => { physicalCores = info.cores || 0; })
     .catch((e) => log('ajudante indisponível:', e.message));

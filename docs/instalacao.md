@@ -156,8 +156,28 @@ O script mostra o **MAC** de cada placa: anote o da placa que o ESP32 vai acorda
   "Wake on LAN" ou "Power on by PCI-E" na BIOS).
 - **Pelo Wi-Fi**, só acorda do repouso. O Windows hiberna depois de algumas horas repousando
   (padrão do plano de energia), e daí o Wi-Fi não acorda mais.
-- O agente só roda com alguém logado no Windows. Depois de ligar o PC do zero, alguém precisa
-  entrar no Windows, a menos que o logon automático esteja ligado.
+- O agente só roda com alguém logado no Windows. Depois de ligar o PC do zero, ele fica parado na
+  tela de senha e a central mostra "sem resposta". Para usar de longe, ligue o logon automático
+  (veja abaixo).
+
+### Entrar sozinho ao ligar (logon automático)
+
+Faz o Windows entrar sozinho na sua conta quando o PC liga, e o agente bloqueia a tela logo em
+seguida. Assim o PC ligado pela central aparece como ligado e tudo funciona de longe. Rode uma vez,
+na pasta do projeto (pede administrador sozinho):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File agent\entrar-sozinho.ps1
+```
+
+O script desliga "só permitir entrar com Windows Hello", baixa o
+[Autologon](https://learn.microsoft.com/sysinternals/downloads/autologon) da Microsoft (confere a
+assinatura) e abre ele: **você** digita a senha do Windows e clica em **Enable**. A senha fica
+guardada criptografada pelo próprio Windows. Depois o script liga a opção `lockAtBoot` do agente.
+
+- Entre o Windows entrar e a tela bloquear passam alguns segundos com a área de trabalho aberta,
+  para quem estiver na frente do PC.
+- Para desligar: o mesmo comando com `-Remove` (clique em **Disable** no Autologon).
 
 ### ESP32 (ligar o PC desligado)
 
@@ -226,5 +246,6 @@ Worker e tudo o que ele guardou: `npx wrangler delete`.
 | `npm install` do agente falha compilando o `node-pty` | Use o Node.js LTS. Se ainda pedir compilação, instale as "Ferramentas de Build do Visual Studio" (C++). |
 | Terminal não abre ("não está conectado para terminais") | O agente está desligado ou reconectando. Espere alguns segundos ou veja o `agent.log`. |
 | ESP32 offline | Veja o Monitor Serial: Wi-Fi (só 2,4 GHz), `WORKER_HOST` sem `https://` e o `DEVICE_SECRET` igual ao da Cloudflare. |
+| O PC ligou pela central, mas aparece "sem resposta" | Ele está na tela de senha: o agente só roda depois que alguém entra no Windows. Ligue o logon automático ([Entrar sozinho ao ligar](#entrar-sozinho-ao-ligar-logon-automático)). |
 | O PC não liga pelo botão | O ESP32 precisa estar online. Rode `acordar-pela-rede.ps1`, confira o `MAC_PC` e a opção de Wake-on-LAN na BIOS. |
 | Sem temperaturas | Instale a tarefa de sensores (seção 7). |

@@ -112,5 +112,7 @@ Opções do `config.json` além das três obrigatórias:
 - `folders`: pastas que sempre aparecem como sugestão, por exemplo `["C:\\Projetos\\site"]`.
 - `folderRoots`: pastas cujas subpastas viram sugestão (padrão: a Área de Trabalho).
 - `claudeArgs`: argumentos do Claude (padrão: `["--remote-control"]`).
+- `lockAtBoot`: `true` bloqueia a tela quando o agente inicia nos primeiros 10 minutos depois de o
+  PC ligar. É o que o `agent\entrar-sozinho.ps1` liga, junto com o logon automático.
 
 Depois de editar, reinicie o agente: rode o `install.ps1` de novo ou reinicie a sessão do Windows.

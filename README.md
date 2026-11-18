@@ -85,7 +85,8 @@ npx wrangler secret put AGENT_SECRET
 8. Instale como app: no Android, **Instalar app** no topo da página; no iPhone, Safari →
    Compartilhar → **Adicionar à Tela de Início** ([detalhes](docs/instalacao.md#6-instalar-como-app-no-celular)).
 
-Opcionais: temperaturas da CPU, ligar pelo ESP32 e acordar pela rede, em
+Opcionais: temperaturas da CPU, ligar pelo ESP32, acordar pela rede e entrar sozinho no Windows ao ligar
+(para usar o PC de longe logo depois de ligar), em
 [docs/instalacao.md](docs/instalacao.md#7-opcionais).
 
 ## Documentação

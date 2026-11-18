@@ -12,6 +12,7 @@ agent/helper.cs           Ajudante em C#: métricas, print, suspender, manter ac
 agent/install.ps1         Instala/atualiza o agente em %LOCALAPPDATA%\CentralPC\agent
 agent/install-sensores.ps1, agent/sensors.ps1   Tarefa SYSTEM que lê as temperaturas
 agent/acordar-pela-rede.ps1                     Libera o Wake-on-LAN na placa de rede
+agent/entrar-sozinho.ps1                        Logon automático + bloquear a tela ao ligar
 esp32/esp32_wol_passkey/  Sketch do ESP32 (Arduino)
 selfhost/                 Hospedagem própria: config do workerd, Dockerfile, Compose e Caddyfile
 scripts/vendor.mjs        Copia o xterm.js de node_modules para public/
